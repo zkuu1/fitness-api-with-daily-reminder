@@ -2,14 +2,20 @@
   "name": "store-management-elysia-js",
   "version": "1.0.50",
   "scripts": {
+    "seed": "bun run prisma/seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/jwt": "^1.4.0",
+    "@prisma/client": "5.22.0",
+    "dotenv": "^17.2.3",
+    "elysia": "latest",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "prisma": "5.22.0"
   },
   "module": "src/index.js"
 }

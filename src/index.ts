@@ -1,7 +1,11 @@
 import { Elysia } from "elysia";
+import { userApi } from "../src/routes/public/api";
+import { errorHandler } from "./utils/error-handler";
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const app = new Elysia()
+    .get("/", () => "Server is running 🟢")
+    .use(userApi)
+    .onError(errorHandler)
+    .listen(3000);
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+console.log(`🔥 Server running at http://localhost:3000`);
