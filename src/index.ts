@@ -1,11 +1,19 @@
+import 'dotenv/config';
 import { Elysia } from "elysia";
-import { userApi } from "../src/routes/public/api";
-import { errorHandler } from "./utils/error-handler";
+import { userApi } from "./routes/public/api";
+import jwt from "@elysiajs/jwt";
 
-const app = new Elysia()
-    .get("/", () => "Server is running 🟢")
-    .use(userApi)
-    .onError(errorHandler)
-    .listen(3000);
+const app = new Elysia({ prefix: "/api" }) // Prefix global API di sini
+    .use(jwt({
+        name: "jwt",
+        secret: process.env.JWT_SECRET!
+    }))
+    .use(userApi) // /api/users
+    .get("/", () => ({ message: "API Running..." })) // JSON Response
 
-console.log(`🔥 Server running at http://localhost:3000`);
+// Logging untuk memastikan env loaded
+console.log("JWT SECRET LOADED:", process.env.JWT_SECRET);
+
+// Start server
+app.listen(3000);
+console.log("🚀 Server running on http://localhost:3000/api/users");
